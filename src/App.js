@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -21,10 +21,21 @@ function App() {
   const [spouseCanadianWorkExperience, setSpouseCanadianWorkExperience] = useState(0);
   const [score, setScore] = useState(0);
 
-  const handleCalculate = () => {
-    let score = calculateCRSScore(age, education, firstLanguage, firstLanguageScore, secondLanguage, secondLanguageScore, canadianWorkExperience, educationWithLanguage, foreignWorkExperienceWithLanguage, certificateOfQualification, spouseEducation, spouseFirstLanguage, spouseFirstLanguageScore, spouseSecondLanguage, spouseSecondLanguageScore, spouseCanadianWorkExperience);
-    setScore(score);
+  useEffect(() => {
+    const scoreString = localStorage.getItem('score');
+    if (scoreString !== null) {
+      const savedScore = JSON.parse(scoreString);
+      setScore(savedScore);
+    }
+  }, []);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newScore = calculateCRSScore(age, education, firstLanguage, firstLanguageScore, secondLanguage, secondLanguageScore, canadianWorkExperience, educationWithLanguage, foreignWorkExperienceWithLanguage, certificateOfQualification, spouseEducation, spouseFirstLanguage, spouseFirstLanguageScore, spouseSecondLanguage, spouseSecondLanguageScore, spouseCanadianWorkExperience);
+    setScore(newScore);
+    localStorage.setItem('score', JSON.stringify(newScore));
   };
+  
 
   const calculateCRSScore = (age, education, firstLanguage, firstLanguageScore, secondLanguage, secondLanguageScore, canadianWorkExperience, educationWithLanguage, foreignWorkExperienceWithLanguage, certificateOfQualification, spouseEducation, spouseFirstLanguage, spouseFirstLanguageScore, spouseSecondLanguage, spouseSecondLanguageScore, spouseCanadianWorkExperience) => {
     let score = 0;
@@ -247,7 +258,7 @@ function App() {
           <label htmlFor="spouse-canadian-work-experience">Spouse's Canadian work experience (in years)</label>
           <input type="number" id="spouse-canadian-work-experience" value={spouseCanadianWorkExperience} onChange={(e) => setSpouseCanadianWorkExperience(parseInt(e.target.value))} />
 
-          <button onClick={handleCalculate}>Calculate</button>
+          <button onClick={handleSubmit}>Calculate</button>
 
           {score > 0 && (
             <div className="result">
