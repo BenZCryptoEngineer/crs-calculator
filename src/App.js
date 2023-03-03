@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import './App.css';
 
@@ -137,126 +138,124 @@ function App() {
 
     // Additional Factors
     score += 100;
-
     return score;
   };
 
+  return (
+      <div className="App">
+        <h1>Canadian Immigration Points Calculator</h1>
+        <form>
+          <h2>Core/Human Capital Factors</h2>
+          <label htmlFor="age">Age:</label>
+          <input type="number" id="age" name="age" min="0" max="200" value={age} onChange={(e) => setAge(e.target.value)} />
 
-return (
-    <div className="App">
-      <h1>Canadian Immigration Points Calculator</h1>
-      <form>
-        <h2>Core/Human Capital Factors</h2>
-        <label htmlFor="age">Age:</label>
-        <input type="number" id="age" name="age" min="0" max="200" value={age} onChange={(e) => setAge(e.target.value)} />
+          <label htmlFor="education">Education:</label>
+          <select id="education" name="education" value={education} onChange={(e) => setEducation(e.target.value)}>
+            <option value="No degree">No degree</option>
+            <option value="High school diploma">High school diploma</option>
+            <option value="Post-secondary diploma or certificate (1-2 years)">Post-secondary diploma or certificate (1-2 years)</option>
+            <option value="Post-secondary diploma or certificate (3 years or longer)">Post-secondary diploma or certificate (3 years or longer)</option>
+            <option value="Bachelor's degree">Bachelor's degree</option>
+            <option value="Master's degree">Master's degree</option>
+            <option value="Doctoral degree">Doctoral degree</option>
+          </select>
 
-        <label htmlFor="education">Education:</label>
-        <select id="education" name="education" value={education} onChange={(e) => setEducation(e.target.value)}>
-          <option value="No degree">No degree</option>
-          <option value="High school diploma">High school diploma</option>
-          <option value="Post-secondary diploma or certificate (1-2 years)">Post-secondary diploma or certificate (1-2 years)</option>
-          <option value="Post-secondary diploma or certificate (3 years or longer)">Post-secondary diploma or certificate (3 years or longer)</option>
-          <option value="Bachelor's degree">Bachelor's degree</option>
-          <option value="Master's degree">Master's degree</option>
-          <option value="Doctoral degree">Doctoral degree</option>
-        </select>
+          <label htmlFor="first-language">First Language:</label>
+          <select id="first-language" name="first-language" value={firstLanguage} onChange={(e) => setFirstLanguage(e.target.value)}>
+            <option value="">Select Language</option>
+            <option value="English">English</option>
+            <option value="French">French</option>
+          </select>
+          <label htmlFor="first-language-score">Score:</label>
+          <input type="number" id="first-language-score" name="first-language-score" min="0" max="10" step="0.5" value={firstLanguageScore} onChange={(e) => setFirstLanguageScore(e.target.value)} />
 
-        <label htmlFor="first-language">First Language:</label>
-        <select id="first-language" name="first-language" value={firstLanguage} onChange={(e) => setFirstLanguage(e.target.value)}>
-          <option value="">Select Language</option>
-          <option value="English">English</option>
-          <option value="French">French</option>
-        </select>
-        <label htmlFor="first-language-score">Score:</label>
-        <input type="number" id="first-language-score" name="first-language-score" min="0" max="10" step="0.5" value={firstLanguageScore} onChange={(e) => setFirstLanguageScore(e.target.value)} />
+          <label htmlFor="second-language">Second Language:</label>
+          <select id="second-language" name="second-language" value={secondLanguage} onChange={(e) => setSecondLanguage(e.target.value)}>
+            <option value="">Select Language</option>
+            <option value="English">English</option>
+            <option value="French">French</option>
+          </select>
+          <label htmlFor="second-language-score">Score:</label>
+          <input type="number" id="second-language-score" name="second-language-score" min="0" max="10" step="0.5" value={secondLanguageScore} onChange={(e) => setSecondLanguageScore(e.target.value)} />
 
-        <label htmlFor="second-language">Second Language:</label>
-        <select id="second-language" name="second-language" value={secondLanguage} onChange={(e) => setSecondLanguage(e.target.value)}>
-          <option value="">Select Language</option>
-          <option value="English">English</option>
-          <option value="French">French</option>
-        </select>
-        <label htmlFor="second-language-score">Score:</label>
-        <input type="number" id="second-language-score" name="second-language-score" min="0" max="10" step="0.5" value={secondLanguageScore} onChange={(e) => setSecondLanguageScore(e.target.value)} />
+          <label htmlFor="canadian-work-experience">Canadian Work Experience (in years):</label>
+          <input type="number" id="canadian-work-experience" name="canadian-work-experience" min="0" max="200" value={canadianWorkExperience} onChange={(e) => setCanadianWorkExperience(e.target.value)} />
 
-        <label htmlFor="canadian-work-experience">Canadian Work Experience (in years):</label>
-        <input type="number" id="canadian-work-experience" name="canadian-work-experience" min="0" max="200" value={canadianWorkExperience} onChange={(e) => setCanadianWorkExperience(e.target.value)} />
+          <h2>Skill Transferability Factors</h2>
+          <label htmlFor="educationWithLanguage">Do you have education in Canada and work experience in a related field? </label>
+          <select id="educationWithLanguage" value={educationWithLanguage} onChange={(e) => setEducationWithLanguage(e.target.value)}>
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
 
-        <h2>Skill Transferability Factors</h2>
-        <label htmlFor="educationWithLanguage">Do you have education in Canada and work experience in a related field? </label>
-        <select id="educationWithLanguage" value={educationWithLanguage} onChange={(e) => setEducationWithLanguage(e.target.value)}>
-          <option value="">Select an option</option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
+          {educationWithLanguage === 'Yes' && (
+            <>
+              <label htmlFor="foreignWorkExperienceWithLanguage">How many years of foreign work experience in a related field do you have? </label>
+              <input type="number" id="foreignWorkExperienceWithLanguage" value={foreignWorkExperienceWithLanguage} onChange={(e) => setForeignWorkExperienceWithLanguage(parseInt(e.target.value))} />
+            </>
+          )}
 
-        {educationWithLanguage === 'Yes' && (
-          <>
-            <label htmlFor="foreignWorkExperienceWithLanguage">How many years of foreign work experience in a related field do you have? </label>
-            <input type="number" id="foreignWorkExperienceWithLanguage" value={foreignWorkExperienceWithLanguage} onChange={(e) => setForeignWorkExperienceWithLanguage(parseInt(e.target.value))} />
-          </>
-        )}
+          <label htmlFor="certificateOfQualification">Do you have a certificate of qualification issued by a Canadian province, territory or federal body? </label>
+          <select id="certificateOfQualification" value={certificateOfQualification} onChange={(e) => setCertificateOfQualification(e.target.value)}>
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
 
-        <label htmlFor="certificateOfQualification">Do you have a certificate of qualification issued by a Canadian province, territory or federal body? </label>
-        <select id="certificateOfQualification" value={certificateOfQualification} onChange={(e) => setCertificateOfQualification(e.target.value)}>
-          <option value="">Select an option</option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
+          <h2>Spouse/Common-law Partner Factors</h2>
+          <label htmlFor="spouse-education">Spouse's education</label>
+          <select id="spouse-education" value={spouseEducation} onChange={(e) => setSpouseEducation(e.target.value)}>
+            <option value=""></option>
+            <option value="No degree">No degree</option>
+            <option value="High school diploma">High school diploma</option>
+            <option value="Post-secondary diploma or certificate (1-2 years)">Post-secondary diploma or certificate (1-2 years)</option>
+            <option value="Post-secondary diploma or certificate (3 years or longer)">Post-secondary diploma or certificate (3 years or longer)</option>
+            <option value="Bachelor's degree">Bachelor's degree</option>
+            <option value="Master's degree">Master's degree</option>
+            <option value="Doctoral degree">Doctoral degree</option>
+          </select>
 
-        <h2>Spouse/Common-law Partner Factors</h2>
-        <label htmlFor="spouse-education">Spouse's education</label>
-        <select id="spouse-education" value={spouseEducation} onChange={(e) => setSpouseEducation(e.target.value)}>
-          <option value=""></option>
-          <option value="No degree">No degree</option>
-          <option value="High school diploma">High school diploma</option>
-          <option value="Post-secondary diploma or certificate (1-2 years)">Post-secondary diploma or certificate (1-2 years)</option>
-          <option value="Post-secondary diploma or certificate (3 years or longer)">Post-secondary diploma or certificate (3 years or longer)</option>
-          <option value="Bachelor's degree">Bachelor's degree</option>
-          <option value="Master's degree">Master's degree</option>
-          <option value="Doctoral degree">Doctoral degree</option>
-        </select>
+          <label htmlFor="spouse-first-language">Spouse's first language</label>
+          <select id="spouse-first-language" value={spouseFirstLanguage} onChange={(e) => setSpouseFirstLanguage(e.target.value)}>
+            <option value=""></option>
+            <option value="English">English</option>
+            <option value="French">French</option>
+          </select>
 
-        <label htmlFor="spouse-first-language">Spouse's first language</label>
-        <select id="spouse-first-language" value={spouseFirstLanguage} onChange={(e) => setSpouseFirstLanguage(e.target.value)}>
-          <option value=""></option>
-          <option value="English">English</option>
-          <option value="French">French</option>
-        </select>
+          {spouseFirstLanguage !== '' && (
+            <>
+              <label htmlFor="spouse-first-language-score">Spouse's first language score</label>
+              <input type="number" id="spouse-first-language-score" value={spouseFirstLanguageScore} onChange={(e) => setSpouseFirstLanguageScore(parseInt(e.target.value))} />
+            </>
+          )}
 
-        {spouseFirstLanguage !== '' && (
-          <>
-            <label htmlFor="spouse-first-language-score">Spouse's first language score</label>
-            <input type="number" id="spouse-first-language-score" value={spouseFirstLanguageScore} onChange={(e) => setSpouseFirstLanguageScore(parseInt(e.target.value))} />
-          </>
-        )}
+          <label htmlFor="spouse-second-language">Spouse's second language</label>
+          <select id="spouse-second-language" value={spouseSecondLanguage} onChange={(e) => setSpouseSecondLanguage(e.target.value)}>
+            <option value=""></option>
+            <option value="English">English</option>
+            <option value="French">French</option>
+          </select>
 
-        <label htmlFor="spouse-second-language">Spouse's second language</label>
-        <select id="spouse-second-language" value={spouseSecondLanguage} onChange={(e) => setSpouseSecondLanguage(e.target.value)}>
-          <option value=""></option>
-          <option value="English">English</option>
-          <option value="French">French</option>
-        </select>
+          {spouseSecondLanguage !== '' && (
+            <>
+              <label htmlFor="spouse-second-language-score">Spouse's second language score</label>
+              <input type="number" id="spouse-second-language-score" value={spouseSecondLanguageScore} onChange={(e) => setSpouseSecondLanguageScore(parseInt(e.target.value))} />
+            </>
+          )}
 
-        {spouseSecondLanguage !== '' && (
-          <>
-            <label htmlFor="spouse-second-language-score">Spouse's second language score</label>
-            <input type="number" id="spouse-second-language-score" value={spouseSecondLanguageScore} onChange={(e) => setSpouseSecondLanguageScore(parseInt(e.target.value))} />
-          </>
-        )}
+          <label htmlFor="spouse-canadian-work-experience">Spouse's Canadian work experience (in years)</label>
+          <input type="number" id="spouse-canadian-work-experience" value={spouseCanadianWorkExperience} onChange={(e) => setSpouseCanadianWorkExperience(parseInt(e.target.value))} />
 
-        <label htmlFor="spouse-canadian-work-experience">Spouse's Canadian work experience (in years)</label>
-        <input type="number" id="spouse-canadian-work-experience" value={spouseCanadianWorkExperience} onChange={(e) => setSpouseCanadianWorkExperience(parseInt(e.target.value))} />
+          <button onClick={handleCalculate}>Calculate</button>
 
-        <button onClick={handleCalculate}>Calculate</button>
-
-        {score > 0 && (
-          <div className="result">
-            Your CRS score is <span>{score}</span>.
-          </div>
-        )}
-    </form>
-</div>
-);
-        }
+          {score > 0 && (
+            <div className="result">
+              Your CRS score is <span>{score}</span>.
+            </div>
+          )}
+      </form>
+  </div>
+  );
+}
 export default App;
